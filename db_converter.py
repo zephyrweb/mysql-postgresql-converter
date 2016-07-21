@@ -79,6 +79,7 @@ def parse(input_filename, output_filename):
             # Start of a table creation statement?
             if line.startswith("CREATE TABLE"):
                 current_table = line.split('"')[1]
+                current_table = current_table.lower()
                 tables[current_table] = {"columns": []}
                 creation_lines = []
             # Inserting data into a table?
@@ -94,6 +95,7 @@ def parse(input_filename, output_filename):
             # Is it a column?
             if line.startswith('"'):
                 useless, name, definition = line.strip(",").split('"',2)
+                name = name.lower()
                 try:
                     type, extra = definition.strip().split(" ", 1)
 
